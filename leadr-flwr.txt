@@ -1,0 +1,28 @@
+Kafka stores stream of records in catageries called topics.
+Each topic stores data in partitions.
+
+To achieve high availablity,kafka will replicate partitions.each copy of partitions calleds as replicas.
+There are two types of replicas in kafka,
+Leader Replica and follwer Replica,
+
+Leader Replica : Out of all this replicas ,consumer and producer use a specific replica to produce and consume messages.
+		 All read and write request for a particular partition will always served by a specific replica and those replica is
+		called Leader Replica.
+		Each partition has a single replica desginated as Leader.
+		Leader Replica is responsible for reading and writing partiton.
+		With out leader replica ,you cannot perform read and write a data to or from a partition.
+		Apart from read and write request from producer and consumer,the other responsibility of leader replica is keeping a track of repicas up to date.
+			
+
+Follwer Replica : All replicas which are not leader replica is said to be follwer replica,
+		 The only job follwer replica is keep update with the leader replica by fetching a message from leader replica..
+		At the event of leader replica failure,one of the follwer replica act as leader replica.
+	           
+--> in order keep himself (follwer replica) update with the leader,follwer always connect for every 500 miliseconds 
+				----   replica.fetch.wait.max.ms -----
+--> in every fetch request ,follwer sends offset number that he want to fetch from the leader.
+--> the rule is follwer replica could not request a random offset fom the leader.
+     example in order to request offset 4 ,the follwer must offset number 3
+--> if any follwer who is not requesting a new message from the leader within 10 seconds (replica.lag.time.max.ms) considered as out of sync.,
+--> replicas who are continously in sync with leader are called as in sync replcas (ISR)
+

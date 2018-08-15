@@ -1,0 +1,30 @@
+kafka cluster durable persist all published records,whether they are consumed or not consumed ,using a configurable retention period .
+
+if rentention policy is set for two days,for two days the record is available for  consumption...after which it will be discarded to free up space.
+
+				--config retention.ms=86000000
+
+changing during runtime --> $ bin/kafka-topics.sh --zookeeper zk.yoursite.com --alter --topic as-access --config retention.ms=86400000
+
+change in kafka-broker.properites 
+
+# Configures retention time in milliseconds
+log.retention.ms=1680000
+
+# Used if log.retention.ms is not set
+log.retention.minutes=1680
+
+# Used if log.retention.minutes is not set
+log.retention.hours=168
+
+Size Based Retention policy :
+, we configure the maximum size of a Log data structure for a Topic partition. Once Log size reaches this size, it starts removing Segments from its end. This policy is not popular as this does not provide good visibility about message expiry.
+
+log.retention.bytes=104857600
+
+
+./bin/kafka-topics.sh --zookeeper localhost:2181 --alter --topic my-topic --config retention.bytes=104857600
+
+Deleting Retention : 
+
+./bin/kafka-topics.sh --zookeeper localhost:2181 --alter --topic my-topic  --delete-config retention.bytes

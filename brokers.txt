@@ -1,0 +1,6 @@
+A single kafka server is broker.
+The broker recieves the message from produers and assign offsets to them.
+It also services consumers responding to fetch requests for partitions and responding with the messages that have been commited to disk.
+Kafka brokers are desgined to operate as part of a cluster.
+Within a cluster of brokers,one brokers,one broker will also function as the cluster controller(elected automatically).Cluster Controller is responsible for admin operations. including assgining  partitions to brokers and monitoring for broker failures.
+

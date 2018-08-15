@@ -1,0 +1,7 @@
+The Streams API allows transforming streams of data from input topics to output topics.
+
+<dependency>
+    <groupId>org.apache.kafka</groupId>
+    <artifactId>kafka-streams</artifactId>
+    <version>1.1.0</version>
+</dependency>
